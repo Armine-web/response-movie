@@ -12,21 +12,23 @@ export function Modal({ open, onClose, children, title, onAddToFavorites }) {
       aria-modal="true"
     >
       <div className="modal-dialog modal-xl">
-        <div className="modal-content">
+        <div className="modal-content" style={{maxWidth: "600px", margin: "auto"}}>
           <div className="modal-header d-flex justify-content-between">
-            <h5 className="modal-title h4" id="myExtraLargeModalLabel">
+            <h5 className="modal-title h4"  id="myExtraLargeModalLabel" style={{color: "#EC8305"}}>
+           
               {title}
             </h5>
             <button
               type="button"
-              className="btn-close"
+              className="btn-close modal-closed-icon"
               onClick={onClose}
             ></button>
           </div>
           <div className="modal-body">
             {children}
             <button 
-              className="btn btn-primary mt-3"
+              className="btn text-white mt-3"
+              style={{backgroundColor: "#EC8305"}}
               onClick={onAddToFavorites}
             >
               Add to Favorite

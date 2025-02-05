@@ -41,13 +41,25 @@ export const MovieDetails = ({ id }) => {
             <strong>Writer:</strong> {movie.Writer}
           </p>
           <p className="text-gray-600">
+            <strong>Released:</strong> {movie.Released}
+          </p>
+          <p className="text-gray-600">
             <strong>Actors:</strong> {movie.Actors}
           </p>
           <p className="text-gray-600">
             <strong>Genre:</strong> {movie.Genre}
           </p>
           <p className="text-gray-600">
+            <strong>Type:</strong> {movie.Type}
+          </p>
+          <p className="text-gray-600">
+            <strong>Country:</strong> {movie.Country}
+          </p>
+          <p className="text-gray-600">
             <strong>Language:</strong> {movie.Language}
+          </p>
+          <p className="text-gray-600">
+            <strong>Key:</strong> {movie.imdbID}
           </p>
         </div>
       </div>

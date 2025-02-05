@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 
 export function Carousel() {
@@ -10,7 +9,7 @@ export function Carousel() {
     setFavorites(storedFavorites);
   }, []);
 
-  const fallbackImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPPpl8iGO_pXiT0FX2hNX-5W9mbjFlKx7Zhw&s";
+  const fallbackImage = "https://i.etsystatic.com/18545205/r/il/dd33b8/3436419395/il_794xN.3436419395_jqd7.jpg";
 
   return (
     <div style={{maxWidth: "800px", height: "400px", margin: "auto"}}>
@@ -54,8 +53,8 @@ export function Carousel() {
                   }}
                 />
                 <div className="carousel-caption d-none d-md-block">
-                  <h5>{movie.Title}</h5>
-                  <p>{movie.Year}</p>
+                  <h5 style={{ color: "#EC8305", fontWeight: "bolder", fontSize: "1.8rem", letterSpacing: "1px" }}>{movie.Title}</h5>
+                  <p style={{ color: "#EC8305" }}>{movie.Year}</p>
                 </div>
               </div>
             ))
@@ -73,8 +72,8 @@ export function Carousel() {
                 }}
               />
               <div className="carousel-caption d-none d-md-block">
-                <h5>No Favorites</h5>
-                <p>There are no movies in your favorites.</p>
+                <h5 style={{ color: "#EC8305", fontWeight: "bolder", fontSize: "1.8rem", letterSpacing: "1px" }}>No Favorites</h5>
+                <p style={{ color: "#EC8305" }}>There are no movies in your favorites.</p>
               </div>
             </div>
           )}
@@ -103,4 +102,4 @@ export function Carousel() {
   );
 }
 
-Carousel.propTypes = {};
+

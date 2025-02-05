@@ -1,3 +1,4 @@
+
 .logo {
     display: flex;
     align-items: center;
@@ -5,12 +6,27 @@
   }
   
   .logo span {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    background-color: #EC8305;
+    border-radius: 50%;
+    padding: 5px;
+  
   }
   
   .logo h1 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 1.4rem;
+    letter-spacing: 1px;
     font-weight: 600;
     margin: 0;
     color: #fff;
+  }
+
+  ul {
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .nav-tabs {
+    border: none!important;
   }

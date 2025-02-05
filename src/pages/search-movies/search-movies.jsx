@@ -49,6 +49,8 @@ export const SearchMovies = ({ searchQuery }) => {
   }, [searchQuery]);
 
   const handleRowClick = (row) => {
+    console.log(row);
+    
     setModalOpen(true);
     setSelectedMovie(row);
 
@@ -67,7 +69,7 @@ export const SearchMovies = ({ searchQuery }) => {
   const handleAddToFavorites = () => {
     if (!selectedMovie) return;
 
-    // Check if the movie is already in localStorage
+  
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     const isMovieInFavorites = favorites.some(
       (movie) => movie.imdbID === selectedMovie.imdbID
@@ -89,7 +91,7 @@ export const SearchMovies = ({ searchQuery }) => {
         open={open}
         onClose={handleCloseModal}
         title={`${selectedMovie?.Title} (${selectedMovie?.Year})`}
-        onAddToFavorites={handleAddToFavorites} // Pass the function as a prop
+        onAddToFavorites={handleAddToFavorites} 
       >
         <MovieDetails id={selectedMovie?.imdbID} />
       </Modal>

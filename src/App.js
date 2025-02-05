@@ -13,7 +13,7 @@ const tab = {
 };
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState("Home");
+  const [searchQuery, setSearchQuery] = useState("2000");
   const [activeTab, setActiveTab] = useState(tab.search);
 
   return (
@@ -21,17 +21,17 @@ function App() {
       
     <div>
       <Header searchQuery={searchQuery} onSearch={setSearchQuery} />
-      <ul className="nav nav-tabs">
+      <ul className="nav nav-tabs ">
         <li className="nav-item">
           <button
             onClick={() => setActiveTab(tab.search)}
-            className="nav-link active"
+            className="nav-link active active-button text-white"
           >
             Search Movies
           </button>
         </li>
         <li className="nav-item">
-          <button onClick={() => setActiveTab(tab.movies)} className="nav-link">
+          <button onClick={() => setActiveTab(tab.movies)} className="nav-link text-white anactive-button">
             My Movie List
           </button>
         </li>
