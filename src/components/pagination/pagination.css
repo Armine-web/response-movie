@@ -1,0 +1,5 @@
+.page-link:focus {
+    outline: none;
+    box-shadow: none;
+    color: #ec840571!important;
+}

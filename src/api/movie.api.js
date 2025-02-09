@@ -41,7 +41,4 @@ class OMDBApi {
   
   export const omdbApi = new OMDBApi("397fac80");
   
-  // Example usage:
-  // const omdb = new OMDB('your_api_key_here');
-  // omdb.fetchMovie('Inception').then(console.log);
-  // omdb.fetchMoviesBySearch('Batman', 1).then(console.log);
+  

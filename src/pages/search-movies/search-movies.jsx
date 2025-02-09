@@ -1,21 +1,27 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Table } from "../../components/table/table";
 import { Modal } from "../../components/modal/modal";
 import { omdbApi } from "../../api/movie.api";
 import { MovieDetails } from "./movie-details/movie-details";
+import { Pagination } from "../../components/pagination/pagination"
+import { APP_TITLE } from "../utils/constatnt";
+import { getAppTitleByMovie } from "../utils/helpers";
 
 export const SearchMovies = ({ searchQuery }) => {
   const [data, setData] = useState([]);
   const [open, setModalOpen] = useState(false);
-  const [timeoutId, setTimeoutId] = useState(null);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [init, setInit] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1); 
+  const timeoutIdRef =useRef(null);
 
-  const fetchMovies = async () => {
-    const response = await omdbApi.fetchMoviesBySearch(searchQuery || "");
+  const fetchMovies = async (page = currentPage) => {
+    const response = await omdbApi.fetchMoviesBySearch(searchQuery || "", page);
 
     if (response.success) {
       setData(response.data.Search || []);
+      setTotalPages(Math.ceil(response.data.totalResults / 10)); 
     }
   };
 
@@ -28,6 +34,7 @@ export const SearchMovies = ({ searchQuery }) => {
     if (movieId && title && year) {
       setModalOpen(true);
       setSelectedMovie({ imdbID: movieId, Title: title, Year: year });
+      document.title =  getAppTitleByMovie(title, year);
     }
   }, []);
 
@@ -39,20 +46,21 @@ export const SearchMovies = ({ searchQuery }) => {
   useEffect(() => {
     if (!init) return;
 
-    clearTimeout(timeoutId);
+    clearTimeout(timeoutIdRef.current);
 
     const toId = setTimeout(() => {
       fetchMovies();
     }, 1000);
 
-    setTimeoutId(toId);
+
+    timeoutIdRef.current = toId;
   }, [searchQuery]);
 
   const handleRowClick = (row) => {
-    console.log(row);
     
     setModalOpen(true);
     setSelectedMovie(row);
+    document.title = getAppTitleByMovie(row.Title, row.Year);
 
     window.history.pushState(
       null,
@@ -64,12 +72,12 @@ export const SearchMovies = ({ searchQuery }) => {
   const handleCloseModal = () => {
     setModalOpen(false);
     window.history.pushState("", "", "/");
+    document.title = APP_TITLE;
   };
 
   const handleAddToFavorites = () => {
     if (!selectedMovie) return;
 
-  
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     const isMovieInFavorites = favorites.some(
       (movie) => movie.imdbID === selectedMovie.imdbID
@@ -84,14 +92,26 @@ export const SearchMovies = ({ searchQuery }) => {
     }
   };
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    fetchMovies(page); 
+  };
+
   return (
     <div className="container mt-4">
       <Table data={data} onRowClick={handleRowClick} />
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange} 
+      />
+
       <Modal
         open={open}
         onClose={handleCloseModal}
-        title={`${selectedMovie?.Title} (${selectedMovie?.Year})`}
-        onAddToFavorites={handleAddToFavorites} 
+        title={getAppTitleByMovie(selectedMovie?.Title, selectedMovie?.Year)}
+        onAddToFavorites={handleAddToFavorites}
       >
         <MovieDetails id={selectedMovie?.imdbID} />
       </Modal>
