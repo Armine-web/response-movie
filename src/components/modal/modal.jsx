@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export function Modal({ open, onClose, children, title, onAddToFavorites }) {
+export function Modal({ open, onClose, children, title}) {
   return (
     <div
       className={`modal fade bd-example-modal-xl show ${open && "show"}`}
       tabIndex="-1"
       role="dialog"
       aria-labelledby="myExtraLargeModalLabel"
-      style={{ display: open && "block" }}
+      style={{ display: open && "block"}}
       aria-modal="true"
     >
       <div className="modal-dialog modal-xl">
@@ -24,15 +24,9 @@ export function Modal({ open, onClose, children, title, onAddToFavorites }) {
               onClick={onClose}
             ></button>
           </div>
-          <div className="modal-body">
+          <div className="modal-body"
+          style={{backgroundColor: "#F0F0F0"}}>
             {children}
-            <button 
-              className="btn text-white mt-3"
-              style={{backgroundColor: "#EC8305"}}
-              onClick={onAddToFavorites}
-            >
-              Add to Favorite
-            </button>
           </div>
         </div>
       </div>

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Header } from "./components/header/header";
 import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-icons/font/bootstrap-icons.css"
 import 'bootstrap';
 import { SearchMovies } from "./pages/search-movies/search-movies";
 import { Movies } from "./pages/movies/movies";
-import {Carousel} from "./components/carousel/carousel"
 import "./App.css"
 
 const tab = {
@@ -36,7 +36,6 @@ function App() {
           </button>
         </li>
       </ul>
-      <Carousel  />
       {activeTab === tab.search ? (
         <SearchMovies searchQuery={searchQuery} />
       ) : (

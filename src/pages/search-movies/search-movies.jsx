@@ -6,6 +6,7 @@ import { MovieDetails } from "./movie-details/movie-details";
 import { Pagination } from "../../components/pagination/pagination"
 import { APP_TITLE } from "../utils/constatnt";
 import { getAppTitleByMovie } from "../utils/helpers";
+import { Carousel } from "../../components/carousel/carousel"
 
 export const SearchMovies = ({ searchQuery }) => {
   const [data, setData] = useState([]);
@@ -15,6 +16,7 @@ export const SearchMovies = ({ searchQuery }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1); 
   const timeoutIdRef =useRef(null);
+  const [timeoutId, setTimeoutId] = useState(null);
 
   const fetchMovies = async (page = currentPage) => {
     const response = await omdbApi.fetchMoviesBySearch(searchQuery || "", page);
@@ -46,6 +48,7 @@ export const SearchMovies = ({ searchQuery }) => {
   useEffect(() => {
     if (!init) return;
 
+    clearTimeout(timeoutId);
     clearTimeout(timeoutIdRef.current);
 
     const toId = setTimeout(() => {
@@ -53,6 +56,7 @@ export const SearchMovies = ({ searchQuery }) => {
     }, 1000);
 
 
+    setTimeoutId(toId);
     timeoutIdRef.current = toId;
   }, [searchQuery]);
 
@@ -75,22 +79,7 @@ export const SearchMovies = ({ searchQuery }) => {
     document.title = APP_TITLE;
   };
 
-  const handleAddToFavorites = () => {
-    if (!selectedMovie) return;
-
-    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    const isMovieInFavorites = favorites.some(
-      (movie) => movie.imdbID === selectedMovie.imdbID
-    );
-
-    if (!isMovieInFavorites) {
-      favorites.push(selectedMovie);
-      localStorage.setItem("favorites", JSON.stringify(favorites));
-      alert("Movie added to favorites!");
-    } else {
-      alert("This movie is already in your favorites.");
-    }
-  };
+  
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -99,6 +88,8 @@ export const SearchMovies = ({ searchQuery }) => {
 
   return (
     <div className="container mt-4">
+      <Carousel/>
+
       <Table data={data} onRowClick={handleRowClick} />
 
       <Pagination
@@ -111,7 +102,6 @@ export const SearchMovies = ({ searchQuery }) => {
         open={open}
         onClose={handleCloseModal}
         title={getAppTitleByMovie(selectedMovie?.Title, selectedMovie?.Year)}
-        onAddToFavorites={handleAddToFavorites}
       >
         <MovieDetails id={selectedMovie?.imdbID} />
       </Modal>

@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useLocalStorageState } from "../../hooks/use-local-storage-state";
 
 export function Carousel() {
-  const [favorites, setFavorites] = useState([]);
+  const [moviesState] = useLocalStorageState([], "movies");
 
 
-  useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    setFavorites(storedFavorites);
-  }, []);
+ 
 
   const fallbackImage = "https://i.etsystatic.com/18545205/r/il/dd33b8/3436419395/il_794xN.3436419395_jqd7.jpg";
 
@@ -20,7 +17,7 @@ export function Carousel() {
       >
         <div className="carousel-indicators">
 
-          {(favorites.length > 0 ? favorites : [1]).map((_, index) => (
+          {(moviesState.length > 0 ? moviesState : [1]).map((_, index) => (
             <button
               key={index}
               type="button"
@@ -35,8 +32,8 @@ export function Carousel() {
 
         <div className="carousel-inner">
        
-          {favorites.length > 0 ? (
-            favorites.map((movie, index) => (
+          {moviesState.length > 0 ? (
+            moviesState.map((movie, index) => (
               <div
                 key={movie.imdbID}
                 className={`carousel-item ${index === 0 ? "active" : ""}`}
