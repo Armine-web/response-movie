@@ -1,79 +1,107 @@
-import React, { useState, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import { omdbApi } from "../../../api/movie.api";
 import { useLocalStorageState } from "../../../hooks/use-local-storage-state";
 
+
+const initialState = {
+  movie: {},
+  isMovieFavorite: false,
+};
+
+
+const movieReducer = (state, action) => {
+  switch (action.type) {
+    case "SET_MOVIE":
+      return { ...state, movie: action.payload };
+
+    case "TOGGLE_FAVORITE":
+      return { ...state, isMovieFavorite: action.payload };
+
+    default:
+      return state;
+  }
+};
+
 export const MovieDetails = ({ id }) => {
-  const [movie, setMovie] = useState({});
-  const [isMovieFavorite, setIsMovieFavorite] = useState(false);
+  const [state, dispatch] = useReducer(movieReducer, initialState);
+  const { movie, isMovieFavorite } = state;
   const [moviesState, setMovies] = useLocalStorageState([], "movies");
 
+
   useEffect(() => {
-    setIsMovieFavorite(!!moviesState.filter((m) => m.imdbID === id).length);
-  }, [id]);
+    const isFavorite = moviesState.some((m) => m.imdbID === id);
+    dispatch({
+      type: "TOGGLE_FAVORITE",
+      payload: isFavorite,
+    });
+  }, [id, moviesState]);
+
 
   useEffect(() => {
     const getMovie = async () => {
       try {
         const response = await omdbApi.fetchByID(id);
-        setMovie(response.data);
+        dispatch({ type: "SET_MOVIE", payload: response.data });
       } catch (error) {
         console.error("Error fetching movie details:", error);
       }
     };
+
     if (id) {
       getMovie();
     } else {
-      setMovie({});
+      dispatch({ type: "SET_MOVIE", payload: {} });
     }
-    return () => {
-      console.log("cleanup");
-    };
   }, [id]);
 
-  const handelUpdateFavoriteStatus = () => {
-    const movies = [...moviesState];
-    const target = movies.find((m) => m.imdbID === id);
+ 
+  const handleUpdateFavoriteStatus = () => {
+    let updatedMovies = [...moviesState];
+    const isMovieInFavorites = updatedMovies.some((m) => m.imdbID === id);
 
-    if (target) {
-      const index = movies.findIndex((m) => m.imdbID === id);
-      movies.splice(index, 1);
-      setMovies(movies);
-      setIsMovieFavorite(false);
+    if (isMovieInFavorites) {
+      updatedMovies = updatedMovies.filter((m) => m.imdbID !== id);
+      dispatch({ type: "TOGGLE_FAVORITE", payload: false });
     } else {
-      movies.push(movie);
-      setMovies(movies);
-      setIsMovieFavorite(true);
+      updatedMovies.push(movie);
+      dispatch({ type: "TOGGLE_FAVORITE", payload: true });
     }
+
+    setMovies(updatedMovies);
   };
 
-
-
   return (
-    
-    <div style={{textAlign: "end"}}>
-       <button classname = "btn btn-link" onClick={handelUpdateFavoriteStatus}>
-              {isMovieFavorite ? 
-              (<i className="bi bi-heart-fill" 
-              style={ {fontSize: "1.4rem", color: "#EC8305" }}/>) : (
-                <i className="bi bi-heart" 
-              style={ {fontSize: "1.4rem", color: "#EC8305" }}/>
-              )
-              }
-            </button>
+    <div style={{ textAlign: "end" }}>
+      <button className="btn " onClick={handleUpdateFavoriteStatus}
+      style={{
+        outline: "none",
+        border: "none",
+        boxShadow: "none",
+      }}
+      >
+        {isMovieFavorite ? (
+          <i
+            className="bi bi-heart-fill"
+            style={{ fontSize: "1.4rem", color: "#EC8305" }}
+          />
+        ) : (
+          <i
+            className="bi bi-heart"
+            style={{ fontSize: "1.4rem", color: "#EC8305" }}
+          />
+        )}
+      </button>
+
       <div className="d-flex justify-content-between">
-        
         <div className="me-5">
-       
           <img
             src={movie.Poster}
             alt={movie.Title}
             width={300}
             className="h-auto rounded d-block"
           />
-          
         </div>
         <div>
-
           <p className="text-gray-600">
             <strong>Writer:</strong> {movie.Writer}
           </p>
