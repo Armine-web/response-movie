@@ -1,8 +1,9 @@
-import { useReducer, useEffect, useRef } from "react";
+import {useContext,  useReducer, useEffect, useRef } from "react";
 import { Table } from "../../components/table/table";
 import { Modal } from "../../components/modal/modal";
 import { omdbApi } from "../../api/movie.api";
 import { MovieDetails } from "./movie-details/movie-details";
+import { MoviesContext } from "../../context/movies-context";
 import { Pagination } from "../../components/pagination/pagination";
 import { APP_TITLE } from "../utils/constatnt";
 import { getAppTitleByMovie } from "../utils/helpers";
@@ -39,7 +40,8 @@ const searchMovieReducer = (state, action) => {
   }
 };
 
-export const SearchMovies = ({ searchQuery }) => {
+export const SearchMovies = () => {
+  const { searchQuery } = useContext(MoviesContext);
   const [state, dispatch] = useReducer(searchMovieReducer, initialState);
   const timeoutIdRef = useRef(null);
 
@@ -60,6 +62,7 @@ export const SearchMovies = ({ searchQuery }) => {
     const movieId = urlParams.get("movieId");
     const title = urlParams.get("title");
     const year = urlParams.get("year");
+
 
     if (movieId && title && year) {
       dispatch({
