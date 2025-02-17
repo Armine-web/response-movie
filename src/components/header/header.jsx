@@ -8,7 +8,7 @@ export const Header = () => {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef?.current?.focus();
   }, []);
   return (
     <header className=" bg-dark text-white p-3 d-flex justify-content-between">
