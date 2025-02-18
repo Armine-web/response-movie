@@ -5,7 +5,7 @@ import "bootstrap-icons/font/bootstrap-icons.css"
 import 'bootstrap';
 import { SearchMovies } from "./pages/search-movies/search-movies";
 import { Movies } from "./pages/movies/movies";
-import { QuizApp } from "./pages/quiz/quiz"
+import { Quiz } from "./pages/quiz/quiz"
 import { MoviesProvider, tab, MoviesContext } from "./context/movies-context";
 import "./App.css"
 
@@ -44,7 +44,7 @@ const Layout = () => {
     <>
     {activeTab === tab.search && <SearchMovies />}
     {activeTab === tab.movies && <Movies />}
-    {activeTab === tab.quiz && <QuizApp />}
+    {activeTab === tab.quiz && <Quiz />}
     </>
   )
 };

@@ -1,6 +1,6 @@
 class QuizApi {
     constructor() {
-      this.baseUrl = "http://localhost:3001/questions";
+      this.baseUrl = "http://localhost:3001";
     }
   
     async getQuestions() {
@@ -10,9 +10,9 @@ class QuizApi {
         );
         const data = await response.json();
         return {
-          success: data.state === 200,
+          success: response.status === 200,
           data,
-          error: data.state !== 200 ? data.error.message : null,
+          error: response.status !== 200 ? response.error: null,
         };
       } catch (error) {
         return { success: false, data: null, error: error.message };

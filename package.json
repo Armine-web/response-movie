@@ -20,7 +20,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "json-server --watch src/data/questions.json --port 3001"
-
   },
   "eslintConfig": {
     "extends": [
