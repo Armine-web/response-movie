@@ -1,13 +1,11 @@
 class QuizApi {
     constructor() {
-      this.baseUrl = "http://localhost:3001";
+      this.baseUrl = "https://simple-blog-api-red.vercel.app/quiz?limit=30";
     }
   
     async getQuestions() {
       try {
-        const response = await fetch(
-          `${this.baseUrl}/questions`
-        );
+        const response = await fetch(this.baseUrl);
         const data = await response.json();
         return {
           success: response.status === 200,

@@ -5,6 +5,8 @@ export const QuizContext = createContext();
 const initialState = {
 
     status: "loading",
+    index: 0,
+    answer: null,
     questions: [],
 }
 
@@ -12,12 +14,12 @@ function reducer(state, action) {
     switch (action.type) {
       case "DATA_RECEIVED":
         return { ...state, questions: action.payload, status: "ready",  };
-  
       case "DATA_FAILED":
-        return { ...state,
-          status: "error", };
+        return { ...state, status: "error", };
       case "START":
-        return { status: "active", };
+        return { ...state, status: "active", };
+      case "NEW_ANSWER":     
+        return { ...state, answer: action.payload};
 
       default:
         throw new Error("Something wrong");
@@ -26,10 +28,10 @@ function reducer(state, action) {
 
 export function QuizProvider ({children}) {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { status, questions } = state;
+    
     return (
         <QuizContext.Provider
-            value ={{status, questions, dispatch}}
+            value ={{...state, dispatch}}
         >
             {children}
         </QuizContext.Provider>
