@@ -1,6 +1,6 @@
 class QuizApi {
     constructor() {
-      this.baseUrl = "https://simple-blog-api-red.vercel.app/quiz?limit=30";
+      this.baseUrl = "https://simple-blog-api-red.vercel.app/quiz?limit=5";
     }
   
     async getQuestions() {

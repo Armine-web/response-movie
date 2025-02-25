@@ -7,6 +7,7 @@ const initialState = {
     status: "loading",
     index: 0,
     answer: null,
+    points: 0,
     questions: [],
 }
 
@@ -18,9 +19,15 @@ function reducer(state, action) {
         return { ...state, status: "error", };
       case "START":
         return { ...state, status: "active", };
-      case "NEW_ANSWER":     
-        return { ...state, answer: action.payload};
-
+      case "NEW_ANSWER": 
+        const question = state.questions[state.index]    
+        return { ...state, answer: action.payload, 
+          points: action.payload === question.correctOption 
+          ? state.points + question.points : state.points,};
+      case "NEXT_QUESTION":     
+        return { ...state, answer: null, index: state.index + 1,};
+      case "FINISH":     
+        return {initialState};
       default:
         throw new Error("Something wrong");
     }
