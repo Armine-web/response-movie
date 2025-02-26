@@ -1,5 +1,6 @@
 import { useContext, useMemo } from "react"
 import { QuizContext } from "../../context/quiz-context"
+import "./finish-screen.css"
 
 const getemojiIcon = (percentage) => {
     let emoji;
@@ -23,15 +24,19 @@ export const FinishScreen = () => {
     }, [points, maxPossiblePoints]);
    
     return (
-        <div className="">
+        <div className="finish-screen">
             <p>
-                <p>{emoji}</p>
+                <p className="fs-1">{emoji}</p>
                 <span>
-                    You scored {points} out of {maxPossiblePoints} points;
-                </span>
+                You Scored 
+                <span style={{margin: '0 12px', color: '#EC8305', fontWeight: 'bolder' }}>{points}</span> 
+                Out Of 
+                <span style={{ color: '#EC8305', margin: '0 12px', fontWeight: 'bolder' }}>{maxPossiblePoints} </span>
+                Points.
+            </span>
             </p>
 
-            <button onClick={() => dispatch ({
+            <button className="restartButton" onClick={() => dispatch ({
                 type: "RESTART"
             })}>
                 Try Again

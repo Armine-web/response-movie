@@ -12,31 +12,38 @@ import "./App.css"
 
 
 const Tabs = () => {
-  const { setActiveTab } = useContext(MoviesContext);
+  const { setActiveTab, activeTab } = useContext(MoviesContext);
+
   return (
-     
     <ul className="nav nav-tabs">
       <li className="nav-item">
         <button
           onClick={() => setActiveTab(tab.search)}
-          className="nav-link active active-button text-white"
+          className={`nav-link ${activeTab === tab.search ? 'active active-button' : ''} text-white`}
         >
           Search Movies
         </button>
       </li>
       <li className="nav-item">
-        <button onClick={() => setActiveTab(tab.movies)} className="nav-link text-white anactive-button">
+        <button
+          onClick={() => setActiveTab(tab.movies)}
+          className={`nav-link ${activeTab === tab.movies ? 'active active-button' : ''} text-white`}
+        >
           My Movie List
         </button>
       </li>
       <li className="nav-item">
-        <button onClick={() => setActiveTab(tab.quiz)} className="nav-link text-white anactive-button">
+        <button
+          onClick={() => setActiveTab(tab.quiz)}
+          className={`nav-link ${activeTab === tab.quiz ? 'active active-button' : ''} text-white`}
+        >
           Quiz
         </button>
       </li>
     </ul>
   );
 };
+
  
 const Layout = () => {
   const { activeTab } = useContext(MoviesContext);

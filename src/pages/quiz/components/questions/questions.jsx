@@ -8,8 +8,8 @@ export const Questions = () => {
     const question = questions[index]
     
     return(
-        <div>
-            <h4>{question.question}</h4>
+        <div className="d-flex flex-column align-items-center justify-content-center">
+            <h4 style={{color: "#EC8305", textTransform: "capitalize", margin: "20px"}}>{question.question}</h4>
             <Options question = {question} />
         </div>
     )

@@ -9,7 +9,7 @@ export const tab = {
 
 export const MoviesProvider = ({ children }) => {
   const [searchQuery, setSearchQuery] = useState("Home");
-  const [activeTab, setActiveTab] = useState(tab.quiz);
+  const [activeTab, setActiveTab] = useState(tab.search);
   return (
     <MoviesContext.Provider
       value={{

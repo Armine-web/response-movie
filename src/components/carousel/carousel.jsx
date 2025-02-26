@@ -50,8 +50,16 @@ export function Carousel() {
                   }}
                 />
                 <div className="carousel-caption d-none d-md-block">
-                  <h5 style={{ color: "#EC8305", fontWeight: "bolder", fontSize: "1.8rem", letterSpacing: "1px" }}>{movie.Title}</h5>
-                  <p style={{ color: "#EC8305" }}>{movie.Year}</p>
+                  <h5 style={{
+                  color: "white", 
+                  background: "#EC8305",
+                  padding: "8px 12px ",
+                  borderRadius: "15px",
+                  fontWeight: "bolder", 
+                  fontSize: "1.8rem", 
+                  letterSpacing: "1px"
+                  }}>{movie.Title}</h5>
+                  
                 </div>
               </div>
             ))
@@ -69,8 +77,16 @@ export function Carousel() {
                 }}
               />
               <div className="carousel-caption d-none d-md-block">
-                <h5 style={{ color: "#EC8305", fontWeight: "bolder", fontSize: "1.8rem", letterSpacing: "1px" }}>No Favorites</h5>
-                <p style={{ color: "#EC8305" }}>There are no movies in your favorites.</p>
+                <h5  style={{
+                  color: "white", 
+                  background: "#EC8305",
+                  padding: "8px 12px ",
+                  borderRadius: "15px",
+                  fontWeight: "bolder", 
+                  fontSize: "1.8rem", 
+                  letterSpacing: "1px"
+                  }}>There are no movies in your favorites.</h5>
+                
               </div>
             </div>
           )}
