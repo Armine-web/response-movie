@@ -1,0 +1,9 @@
+.next-and-finish-question-button {
+    background-color: #ffca2c;
+    border-radius: 8px;
+    padding: 5px 20px;
+}
+
+.next-and-finish-question-button:hover {
+    box-shadow: 0 0 8px rgba(206, 192, 192, 0.8);
+}

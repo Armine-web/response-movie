@@ -1,0 +1,10 @@
+button{
+  outline: none !important;
+  border: none !important;
+}
+.active-button {
+  background-color: #EC8305 !important;
+  border-radius: 8px !important;
+}
+
+
