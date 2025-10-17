@@ -1,0 +1,22 @@
+.finish-screen {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 24px;
+}
+
+.restartButton{
+   background-color: #EC8305;
+   color: #fff;
+   border: none;
+   border-radius: 8px;
+   padding: 0.5rem 1rem;
+   font-size: 18px;
+}
+
+.restartButton:hover{
+    background-color: #F7C800;
+    color: #000;
+}
